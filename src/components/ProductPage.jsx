@@ -6,18 +6,43 @@ import Price from "./price";
 import OldPrice from "./old-price";
 import Counter from "./counter";
 import Description from "./description";
+import Comments from "./comments";
 
-function ProductPage() {
+function ProductPage({ product }) {
+  const {
+    title,
+    article,
+    oldPrice,
+    price,
+    imageUrl,
+    comments = [],
+    description
+  } = product;
+
+  // Условие для отображения старой цены
+  const showOldPrice = oldPrice && oldPrice > 0 && oldPrice > price;
+
   return (
     <section style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
-      <Title>3D принтер</Title>
-      <Code>Артикул: 2840367</Code>
+      <Title>{title}</Title>
+      <Code>Артикул: {article}</Code>
       
       <div style={{ display: "flex", gap: "30px", marginTop: "20px" }}>
-        <Gallery />
+        <Gallery imageUrl={imageUrl} />
         <div>
           <p style={{ fontSize: "18px" }}>
-            Цена: <OldPrice>55555 ₽</OldPrice> <Price>33333 ₽</Price>
+            Цена: 
+            {showOldPrice && <OldPrice>{oldPrice} ₽</OldPrice>}
+            <Price>{price} ₽</Price>
+            {showOldPrice && (
+              <span style={{ 
+                color: "green", 
+                marginLeft: "10px",
+                fontSize: "14px"
+              }}>
+                Скидка {Math.round((1 - price/oldPrice) * 100)}%
+              </span>
+            )}
           </p>
           
           <div style={{ margin: "15px 0" }}>
@@ -32,7 +57,9 @@ function ProductPage() {
         </div>
       </div>
       
-      <Description />
+      <Description text={description} />
+      
+      <Comments comments={comments} />
     </section>
   );
 }

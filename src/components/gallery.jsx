@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Gallery = () => {
+const Gallery = ({ imageUrl }) => {
   return (
     <div>
       <img 
         width="300" 
         height="385" 
-        src="https://i.ibb.co/gPCq1G4/image.png" 
+        src={imageUrl} 
         alt="3D принтер"
         style={{ borderRadius: "8px" }}
       />
