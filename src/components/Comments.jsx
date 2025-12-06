@@ -1,4 +1,5 @@
 import React from 'react';
+import Popularity from './Popularity';
 
 const Comments = ({ comments = [] }) => {
   const commentsCount = comments.length;
@@ -7,39 +8,35 @@ const Comments = ({ comments = [] }) => {
     <div style={{ marginTop: "30px" }}>
       <h3>Отзывы ({commentsCount})</h3>
       
-      {/* Блок проверенного товара */}
-      {commentsCount > 5 && (
-        <div style={{
-          backgroundColor: "#e8f5e9",
-          color: "#2e7d32",
-          padding: "10px",
-          borderRadius: "5px",
-          marginBottom: "15px"
-        }}>
-          ✅ Проверенный товар
-        </div>
-      )}
+      {/* Плашка популярности */}
+      <Popularity commentsCount={commentsCount} />
       
-      {/* Блок "будь первым" */}
-      {commentsCount === 0 && (
-        <div style={{
-          fontWeight: "bold",
-          marginBottom: "15px"
-        }}>
-          Будь первым. Поделись впечатлениями
-        </div>
-      )}
-      
-      {/* Список комментариев */}
+      {/* Список комментариев с авторами */}
       {commentsCount > 0 && (
-        <ul style={{ listStyle: "none", padding: 0 }}>
+        <ul style={{ 
+          listStyle: "none", 
+          padding: 0,
+          margin: 0
+        }}>
           {comments.map(comment => (
             <li key={comment.id} style={{
               borderBottom: "1px solid #eee",
-              padding: "10px 0",
-              marginBottom: "5px"
+              padding: "15px 0",
+              marginBottom: "10px"
             }}>
-              {comment.text}
+              <div style={{
+                fontWeight: "bold",
+                marginBottom: "5px",
+                color: "#333"
+              }}>
+                {comment.author}
+              </div>
+              <div style={{
+                color: "#666",
+                lineHeight: "1.5"
+              }}>
+                {comment.text}
+              </div>
             </li>
           ))}
         </ul>

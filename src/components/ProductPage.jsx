@@ -2,7 +2,7 @@ import React from "react";
 import Title from "./title";
 import Code from "./code";
 import Gallery from "./gallery";
-import FullPrice from "./fullPrice";  // Новый компонент
+import FullPrice from "./FullPrice";
 import Counter from "./counter";
 import Description from "./description";
 import Comments from "./comments";
@@ -15,7 +15,8 @@ function ProductPage({ product }) {
     price,
     imageUrl,
     comments = [],
-    description
+    description,
+    delivery
   } = product;
 
   return (
@@ -26,15 +27,14 @@ function ProductPage({ product }) {
       <div style={{ display: "flex", gap: "30px", marginTop: "20px" }}>
         <Gallery imageUrl={imageUrl} />
         <div>
-          {/* Вся логика цен теперь в FullPrice */}
-          <FullPrice oldPrice={oldPrice} price={price} />
+          <FullPrice price={price} oldPrice={oldPrice} />
           
           <div style={{ margin: "15px 0" }}>
             Количество: <Counter />
           </div>
           
           <p style={{ margin: "15px 0" }}>
-            <span>Доставка:</span> 1 апреля
+            <span>Доставка:</span> {delivery}
           </p>
           
           <button type="button">Купить</button>
