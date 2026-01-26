@@ -1,33 +1,26 @@
-import styled from 'styled-components';
-import { P } from '../../elements';
-
-const DescriptionContainer = styled.div`
-  margin-top: 30px;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-`;
-
-const DescriptionTitle = styled.h2`
-  margin: 0 0 15px 0;
-  font-size: 1.5rem;
-  color: #333;
-  font-weight: 600;
-`;
-
-const DescriptionText = styled(P)`
-  line-height: 1.6;
-  white-space: pre-line;
-  color: #555;
-  margin: 0;
-`;
+import Button from '../Button/Button';
+import {
+  DescriptionContainer,
+  DescriptionTitle,
+  DescriptionText,
+  DetailsButtonWrapper
+} from './styled';
 
 const Description = ({ text }) => {
   return (
     <DescriptionContainer>
       <DescriptionTitle>Описание</DescriptionTitle>
       <DescriptionText>{text}</DescriptionText>
+      <DetailsButtonWrapper>
+        <Button 
+          size="medium"
+          bgColor="#2196f3"
+          textColor="white"
+          hoverColor="#1976d2"
+        >
+          Подробнее
+        </Button>
+      </DetailsButtonWrapper>
     </DescriptionContainer>
   );
 };

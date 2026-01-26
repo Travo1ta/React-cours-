@@ -1,12 +1,4 @@
-import styled from 'styled-components';
-import { P } from '../../elements';
-
-const StyledCode = styled(P)`
-  color: #666;
-  font-size: 0.875rem;
-  display: block;
-  margin-bottom: 5px;
-`;
+import { StyledCode } from './styled';
 
 const Code = ({ children }) => {
   return <StyledCode as="small">{children}</StyledCode>;

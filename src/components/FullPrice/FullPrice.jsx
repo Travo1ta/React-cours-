@@ -1,13 +1,6 @@
 import Price from '../Price/Price';
 import OldPrice from '../OldPrice/OldPrice';
-import styled from 'styled-components';
-
-const PriceContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 15px 0;
-  gap: 10px;
-`;
+import { PriceContainer } from './styled';
 
 const FullPrice = ({ price, oldPrice }) => {
   const showOldPrice = oldPrice && price < oldPrice;
