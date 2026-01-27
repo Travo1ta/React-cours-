@@ -1,7 +1,6 @@
 import Button from '../Button/Button';
 import {
   DescriptionContainer,
-  DescriptionTitle,
   DescriptionText,
   DetailsButtonWrapper
 } from './styled';
@@ -9,7 +8,6 @@ import {
 const Description = ({ text }) => {
   return (
     <DescriptionContainer>
-      <DescriptionTitle>Описание</DescriptionTitle>
       <DescriptionText>{text}</DescriptionText>
       <DetailsButtonWrapper>
         <Button 

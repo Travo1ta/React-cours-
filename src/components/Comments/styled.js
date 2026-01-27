@@ -3,14 +3,7 @@ import { Ul, Li } from '../../elements';
 import Button from '../Button/Button';
 
 export const CommentsContainer = styled.div`
-  margin-top: 30px;
-`;
-
-export const CommentsTitle = styled.h3`
-  font-size: 1.5rem;
-  margin: 0 0 20px 0;
-  color: #333;
-  font-weight: 600;
+  padding: 0;
 `;
 
 export const CommentsList = styled(Ul)``;
@@ -44,26 +37,23 @@ export const ShowMoreButtonWrapper = styled.div`
   text-align: center;
 `;
 
-// Синяя кнопка как у "Купить"
 export const ShowMoreButton = styled(Button)`
   && {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-color: #2196f3;
     color: white;
-    font-weight: 600;
+    font-weight: 500;
     border: none;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
     
     &:hover {
-      background: linear-gradient(135deg, #5a6fd8 0%, #6b4192 100%);
+      background-color: #1976d2;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      box-shadow: 0 4px 8px rgba(33, 150, 243, 0.4);
     }
     
     &:active {
       transform: translateY(0);
-      box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+      background-color: #1565c0;
     }
   }
 `;

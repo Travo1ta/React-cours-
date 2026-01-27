@@ -1,21 +1,25 @@
+import { useState } from 'react';
 import Title from '../Title/Title';
 import Code from '../Code/Code';
 import Gallery from '../Gallery/Gallery';
-import FullPrice from '../FullPrice/FullPrice';
-import Counter from '../Counter/Counter';
 import Description from '../Description/Description';
 import Comments from '../Comments/Comments';
-import { 
-  ProductPageContainer,
-  Article,
-  ProductHeader,
+import Tabs from '../Tabs/Tabs';
+import {
+  StyledProductPage,
+  Header,
+  ProductWrapper,
   ProductInfo,
-  ActionSection,
-  DeliveryInfo,
-  BuyButton
+  ProductInfoLine,
+  PageCounter,
+  BuyButton,
+  PageFullPrice,
+  DeliveryValue
 } from './styled';
 
 const ProductPage = ({ product }) => {
+  const [activeTab, setActiveTab] = useState(0);
+  
   const {
     title,
     article,
@@ -27,40 +31,52 @@ const ProductPage = ({ product }) => {
     delivery
   } = product;
 
+  const tabs = [
+    {
+      title: "Описание",
+      content: <Description text={description} />
+    },
+    {
+      title: "Комментарии",
+      content: <Comments comments={comments} />
+    }
+  ];
+
+  const handleTabClick = (index) => {
+    setActiveTab(index);
+  };
+
   return (
-    <ProductPageContainer>
-      <Article>
-        <ProductHeader>
-          <Gallery imageUrl={imageUrl} />
-          <ProductInfo>
-            <Title>{title}</Title>
-            <Code>Артикул: {article}</Code>
-            <FullPrice price={price} oldPrice={oldPrice} />
-            
-            <ActionSection>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '15px' }}>
-                <span style={{ fontWeight: '500' }}>Количество:</span>
-                <Counter />
-              </div>
-              
-              <DeliveryInfo>
-                <strong>Доставка:</strong> {delivery}
-              </DeliveryInfo>
-              
-              <BuyButton 
-                type="button" 
-                size="large"
-              >
-                Купить
-              </BuyButton>
-            </ActionSection>
-          </ProductInfo>
-        </ProductHeader>
-        
-        <Description text={description} />
-        <Comments comments={comments} />
-      </Article>
-    </ProductPageContainer>
+    <StyledProductPage>
+      <Header>
+        <Title>{title}</Title>
+        <Code>Артикул: {article}</Code>
+      </Header>
+      
+      <ProductWrapper>
+        <Gallery imageUrl={imageUrl} />
+        <ProductInfo>
+          <ProductInfoLine>
+            Цена:{" "}
+            <PageFullPrice oldPrice={oldPrice} price={price} />
+          </ProductInfoLine>
+          <ProductInfoLine>
+            Количество: <PageCounter />
+          </ProductInfoLine>
+          <ProductInfoLine>
+            <span>Доставка:</span>{" "}
+            <DeliveryValue>{delivery}</DeliveryValue>
+          </ProductInfoLine>
+          <BuyButton size="large">Купить</BuyButton>
+        </ProductInfo>
+      </ProductWrapper>
+      
+      <Tabs 
+        tabs={tabs} 
+        activeTab={activeTab}
+        onTabClick={handleTabClick}
+      />
+    </StyledProductPage>
   );
 };
 

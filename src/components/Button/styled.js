@@ -27,9 +27,9 @@ export const StyledButton = styled.button`
   cursor: pointer;
   box-shadow: none;
   display: block;
-  background-color: ${props => props.$bgColor || 'yellow'};
-  color: ${props => props.$textColor || '#000'};
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: ${props => props.$bgColor || '#f5f5f5'};
+  color: ${props => props.$textColor || '#333'};
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   
   ${(props) => {
@@ -45,11 +45,12 @@ export const StyledButton = styled.button`
   }}
   
   &:hover {
-    background-color: ${props => props.$hoverColor || props.$bgColor || 'yellow'};
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    background-color: ${props => props.$hoverColor || props.$bgColor || '#e0e0e0'};
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
   
   &:active {
     transform: scale(0.98);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
 `;

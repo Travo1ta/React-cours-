@@ -1,17 +1,17 @@
 import { PopularityBadge } from './styled';
 
-const Popularity = ({ commentsCount }) => {
-  if (commentsCount > 5) {
+const Popularity = ({ count }) => {
+  if (count > 5) {
     return (
-      <PopularityBadge commentsCount={commentsCount}>
+      <PopularityBadge $commentsCount={count}>
         <span>✅</span> Проверенный товар
       </PopularityBadge>
     );
   }
 
-  if (commentsCount === 0) {
+  if (count === 0) {
     return (
-      <PopularityBadge commentsCount={commentsCount}>
+      <PopularityBadge $commentsCount={count}>
         <span>💬</span> Будь первым. Поделись впечатлениями
       </PopularityBadge>
     );

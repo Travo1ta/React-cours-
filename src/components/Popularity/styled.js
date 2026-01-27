@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { P } from '../../elements';
 
-export const PopularityBadge = styled(P)`
+export const PopularityBadge = styled(P).withConfig({
+  shouldForwardProp: (prop) => !['commentsCount'].includes(prop),
+})`
   background-color: ${({ commentsCount }) => 
     commentsCount > 5 ? '#e8f5e9' : '#fff3e0'};
   color: ${({ commentsCount }) => 

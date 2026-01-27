@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Popularity from '../Popularity/Popularity';
 import {
   CommentsContainer,
-  CommentsTitle,
   CommentsList,
   CommentItem,
   CommentAuthor,
@@ -12,29 +11,27 @@ import {
 } from './styled';
 
 const Comments = ({ comments = [] }) => {
-  const commentsCount = comments.length;
+  const commentsCount = comments?.length || 0;
   const [showAll, setShowAll] = useState(false);
   
   const initialCount = 3;
   const displayedComments = showAll 
     ? comments 
-    : comments.slice(0, initialCount);
+    : comments?.slice(0, initialCount) || [];
     
   const shouldShowButton = commentsCount > initialCount;
 
   return (
     <CommentsContainer>
-      <CommentsTitle>Отзывы ({commentsCount})</CommentsTitle>
-      
-      <Popularity commentsCount={commentsCount} />
+      <Popularity count={commentsCount} />
       
       {commentsCount > 0 && (
         <>
           <CommentsList>
             {displayedComments.map(comment => (
-              <CommentItem key={comment.id}>
-                <CommentAuthor>{comment.author}</CommentAuthor>
-                <CommentText>{comment.text}</CommentText>
+              <CommentItem key={`${comment.author}-${comment.text}`}>
+                <CommentAuthor>{comment?.author}</CommentAuthor>
+                <CommentText>{comment?.text}</CommentText>
               </CommentItem>
             ))}
           </CommentsList>
