@@ -1,83 +1,83 @@
 import { useState } from 'react';
 import Title from '../Title/Title';
-import Code from '../Code/Code';
+import { Code } from '../Code/styled';
 import Gallery from '../Gallery/Gallery';
 import Description from '../Description/Description';
 import Comments from '../Comments/Comments';
 import Tabs from '../Tabs/Tabs';
 import {
-  StyledProductPage,
-  Header,
-  ProductWrapper,
-  ProductInfo,
-  ProductInfoLine,
-  PageCounter,
-  BuyButton,
-  PageFullPrice,
-  DeliveryValue
+   StyledProductPage,
+   Header,
+   ProductWrapper,
+   ProductInfo,
+   ProductInfoLine,
+   PageCounter,
+   BuyButton,
+   PageFullPrice,
+   DeliveryValue
 } from './styled';
 
 const ProductPage = ({ product }) => {
-  const [activeTab, setActiveTab] = useState(0);
-  
-  const {
-    title,
-    article,
-    oldPrice,
-    price,
-    imageUrl,
-    comments = [],
-    description,
-    delivery
-  } = product;
+   const [activeTab, setActiveTab] = useState(0);
 
-  const tabs = [
-    {
-      title: "Описание",
-      content: <Description text={description} />
-    },
-    {
-      title: "Комментарии",
-      content: <Comments comments={comments} />
-    }
-  ];
+   const {
+      title,
+      article,
+      oldPrice,
+      price,
+      imageUrl,
+      comments = [],
+      description,
+      delivery
+   } = product;
 
-  const handleTabClick = (index) => {
-    setActiveTab(index);
-  };
+   const tabs = [
+      {
+         title: "Описание",
+         content: <Description text={description} />
+      },
+      {
+         title: "Комментарии",
+         content: <Comments comments={comments} />
+      }
+   ];
 
-  return (
-    <StyledProductPage>
-      <Header>
-        <Title>{title}</Title>
-        <Code>Артикул: {article}</Code>
-      </Header>
-      
-      <ProductWrapper>
-        <Gallery imageUrl={imageUrl} />
-        <ProductInfo>
-          <ProductInfoLine>
-            Цена:{" "}
-            <PageFullPrice oldPrice={oldPrice} price={price} />
-          </ProductInfoLine>
-          <ProductInfoLine>
-            Количество: <PageCounter />
-          </ProductInfoLine>
-          <ProductInfoLine>
-            <span>Доставка:</span>{" "}
-            <DeliveryValue>{delivery}</DeliveryValue>
-          </ProductInfoLine>
-          <BuyButton size="large">Купить</BuyButton>
-        </ProductInfo>
-      </ProductWrapper>
-      
-      <Tabs 
-        tabs={tabs} 
-        activeTab={activeTab}
-        onTabClick={handleTabClick}
-      />
-    </StyledProductPage>
-  );
+   const handleTabClick = (index) => {
+      setActiveTab(index);
+   };
+
+   return (
+      <StyledProductPage>
+         <Header>
+            <Title>{title}</Title>
+            <Code>{article}</Code>
+         </Header>
+
+         <ProductWrapper>
+            <Gallery imageUrl={imageUrl} />
+            <ProductInfo>
+               <ProductInfoLine>
+                  Цена:{" "}
+                  <PageFullPrice oldPrice={oldPrice} price={price} />
+               </ProductInfoLine>
+               <ProductInfoLine>
+                  Количество: <PageCounter />
+               </ProductInfoLine>
+               <ProductInfoLine>
+                  <span>Доставка:</span>{" "}
+                  <DeliveryValue>{delivery}</DeliveryValue>
+               </ProductInfoLine>
+               <BuyButton size="large">Купить</BuyButton>
+            </ProductInfo>
+         </ProductWrapper>
+
+         <Tabs
+            tabs={tabs}
+            activeTab={activeTab}
+            onTabClick={handleTabClick}
+         />
+      </StyledProductPage>
+   );
 };
 
 export default ProductPage;
