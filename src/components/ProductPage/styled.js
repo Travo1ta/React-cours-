@@ -1,13 +1,14 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Button from '../Button/Button';
 import Counter from '../Counter/Counter';
 import FullPrice from '../FullPrice/FullPrice';
 import { theme } from '../../theme';
 
-const valueStyle = `
+// Используем css функцию для шаблонной строки
+const valueStyle = css`
   display: inline-flex;
-  margin-left: ${theme.indent};
-  color: ${theme.textColor};
+  margin-left: ${(props) => props.theme?.indent || theme.indent};
+  color: ${(props) => props.theme?.textColor || theme.textColor};
 `;
 
 export const StyledProductPage = styled.article`

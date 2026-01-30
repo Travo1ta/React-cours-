@@ -1,8 +1,22 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { theme } from '../../theme';
 
-// Используем тему для buttonOptions
+// Используем css функцию для buttonOptions
 const buttonOptions = theme.button;
+
+const buttonSizeStyle = css`
+  ${(props) => {
+    const buttonTheme = buttonOptions[props.$size || "medium"];
+
+    return css`
+      height: ${buttonTheme.height};
+      padding-left: ${buttonTheme.padding};
+      padding-right: ${buttonTheme.padding};
+      font-size: ${buttonTheme.fontSize};
+      border-radius: ${buttonTheme.radius};
+    `;
+  }}
+`;
 
 export const StyledButton = styled.button`
   padding: 0;
@@ -15,17 +29,7 @@ export const StyledButton = styled.button`
   box-shadow: ${theme.shadowLight};
   transition: all 0.3s ease;
   
-  ${(props) => {
-    const buttonTheme = buttonOptions[props.$size || "medium"];
-
-    return `
-      height: ${buttonTheme.height};
-      padding-left: ${buttonTheme.padding};
-      padding-right: ${buttonTheme.padding};
-      font-size: ${buttonTheme.fontSize};
-      border-radius: ${buttonTheme.radius};
-    `;
-  }}
+  ${buttonSizeStyle}
   
   &:hover {
     background-color: ${props => props.$hoverColor || props.$bgColor || '#e0e0e0'};

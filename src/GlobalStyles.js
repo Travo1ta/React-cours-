@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { theme } from './theme';
 
 const GlobalStyles = createGlobalStyle`
   *,
@@ -10,13 +11,13 @@ const GlobalStyles = createGlobalStyle`
   }
   
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-family: ${theme.font};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: ${theme.background};
+    color: ${theme.textColor};
     line-height: 1.5;
-    font-size: 16px;
+    font-size: ${theme.fontSize};
   }
   
   #root {
