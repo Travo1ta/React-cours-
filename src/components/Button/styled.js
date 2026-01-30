@@ -1,25 +1,8 @@
 import styled from 'styled-components';
+import { theme } from '../../theme';
 
-const buttonOptions = {
-  large: {
-    height: "40px",
-    padding: "40px",
-    fontSize: "24px",
-    radius: "10px"
-  },
-  medium: {
-    height: "30px",
-    padding: "30px",
-    fontSize: "18px",
-    radius: "5px"
-  },
-  small: {
-    height: "20px",
-    padding: "8px",
-    fontSize: "16px",
-    radius: "3px"
-  }
-};
+// Используем тему для buttonOptions
+const buttonOptions = theme.button;
 
 export const StyledButton = styled.button`
   padding: 0;
@@ -27,26 +10,26 @@ export const StyledButton = styled.button`
   cursor: pointer;
   box-shadow: none;
   display: block;
-  background-color: ${props => props.$bgColor || '#f5f5f5'};
-  color: ${props => props.$textColor || '#333'};
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: ${props => props.$bgColor || theme.background};
+  color: ${props => props.$textColor || theme.textColor};
+  box-shadow: ${theme.shadowLight};
   transition: all 0.3s ease;
   
   ${(props) => {
-    const theme = buttonOptions[props.$size || "medium"];
+    const buttonTheme = buttonOptions[props.$size || "medium"];
 
     return `
-      height: ${theme.height};
-      padding-left: ${theme.padding};
-      padding-right: ${theme.padding};
-      font-size: ${theme.fontSize};
-      border-radius: ${theme.radius};
+      height: ${buttonTheme.height};
+      padding-left: ${buttonTheme.padding};
+      padding-right: ${buttonTheme.padding};
+      font-size: ${buttonTheme.fontSize};
+      border-radius: ${buttonTheme.radius};
     `;
   }}
   
   &:hover {
     background-color: ${props => props.$hoverColor || props.$bgColor || '#e0e0e0'};
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: ${theme.shadowHover};
   }
   
   &:active {

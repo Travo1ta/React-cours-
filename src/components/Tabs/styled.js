@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 import Button from '../Button/Button';
+import { theme } from '../../theme';
 
 export const TabsContainer = styled.div`
-  margin-top: 30px;
+  margin-top: ${theme.indentLarge};
 `;
 
 export const TitleList = styled.div`
   display: flex;
-  border-bottom: 2px solid #eee;
-  margin-bottom: 20px;
+  border-bottom: 2px solid ${theme.borderColor};
+  margin-bottom: ${theme.indent};
   gap: 0;
 `;
 
@@ -21,15 +22,15 @@ export const TitleButton = styled(Button).withConfig({
     border-radius: 0;
     padding: 15px 30px;
     font-size: 16px;
-    color: ${props => props.$active ? '#2196f3' : '#666'};
+    color: ${props => props.$active ? theme.primaryColor : theme.textColorMuted};
     font-weight: ${props => props.$active ? '600' : '400'};
-    border-bottom: 2px solid ${props => props.$active ? '#2196f3' : 'transparent'};
+    border-bottom: 2px solid ${props => props.$active ? theme.primaryColor : 'transparent'};
     margin-bottom: -2px;
     box-shadow: none;
     
     &:hover {
-      background: ${props => props.$active ? 'none' : '#f5f5f5'};
-      color: ${props => props.$active ? '#2196f3' : '#333'};
+      background: ${props => props.$active ? 'none' : theme.background};
+      color: ${props => props.$active ? theme.primaryColor : theme.textColor};
       transform: none;
     }
   }
@@ -41,7 +42,6 @@ export const TitleText = styled.span.withConfig({
   font-size: ${props => props.$small ? '14px' : '16px'};
 `;
 
-// ДОБАВЬ ЭТОТ ЭКСПОРТ
 export const Content = styled.div`
-  padding: 20px 0;
+  padding: ${theme.indent} 0;
 `;
