@@ -4,7 +4,6 @@ import Counter from '../Counter/Counter';
 import FullPrice from '../FullPrice/FullPrice';
 import { theme } from '../../theme';
 
-// Используем css функцию для шаблонной строки
 const valueStyle = css`
   display: inline-flex;
   margin-left: ${(props) => props.theme?.indent || theme.indent};
