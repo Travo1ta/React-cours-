@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Title } from '../Title/styled';
 import { Code } from '../Code/styled';
 import { ImageWrapper, GalleryImage } from '../Gallery/styled';
@@ -18,8 +17,6 @@ import {
 } from './styled';
 
 const ProductPage = ({ product }) => {
-  const [activeTab, setActiveTab] = useState(0);
-  
   const {
     title,
     article,
@@ -30,6 +27,10 @@ const ProductPage = ({ product }) => {
     description,
     delivery
   } = product;
+
+  const handleBuyClick = () => {
+    console.log('открытие окна оформления заказа');
+  };
 
   const tabs = [
     {
@@ -42,17 +43,13 @@ const ProductPage = ({ product }) => {
     }
   ];
 
-  const handleTabClick = (index) => {
-    setActiveTab(index);
-  };
-
   return (
     <StyledProductPage>
       <Header>
         <Title as="h1">{title}</Title>
         <Code>{article}</Code>
       </Header>
-      
+
       <ProductWrapper>
         <ImageWrapper>
           <GalleryImage src={imageUrl} alt="3D принтер" />
@@ -69,15 +66,11 @@ const ProductPage = ({ product }) => {
             <span>Доставка:</span>{" "}
             <DeliveryValue>{delivery}</DeliveryValue>
           </ProductInfoLine>
-          <BuyButton size="large">Купить</BuyButton>
+          <BuyButton size="large" onClick={handleBuyClick}>Купить</BuyButton>
         </ProductInfo>
       </ProductWrapper>
-      
-      <Tabs 
-        tabs={tabs} 
-        activeTab={activeTab}
-        onTabClick={handleTabClick}
-      />
+
+      <Tabs tabs={tabs} />
     </StyledProductPage>
   );
 };

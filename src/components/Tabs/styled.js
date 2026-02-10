@@ -1,47 +1,55 @@
-import styled from 'styled-components';
-import Button from '../Button/Button';
-import { theme } from '../../theme';
+import { useState } from 'react';
+import {
+  TabsContainer,
+  TitleList,
+  TitleButton,
+  TitleText,
+  Content
+} from './styled';
 
-export const TabsContainer = styled.div`
-  margin-top: ${theme.indentLarge};
-`;
+const Tabs = ({ tabs }) => {
+  const [activeTab, setActiveTab] = useState(0);
+  
+  if (!tabs?.length) return null;
 
-export const TitleList = styled.div`
-  display: flex;
-  border-bottom: 2px solid ${theme.borderColor};
-  margin-bottom: ${theme.indent};
-  gap: 0;
-`;
+  return (
+    <TabsContainer>
+      <TitleList role="tablist">
+        {tabs.map((item, index) => {
+          const isActive = index === activeTab;
+          return (
+            <TitleButton
+              key={item.title}
+              $active={isActive}
+              onClick={() => {
+                if (!isActive) {
+                  setActiveTab(index);
+                }
+              }}
+              role="tab"
+              aria-selected={isActive}
+              aria-controls={`tabpanel-${item.title}`}
+            >
+              <TitleText
+                $small={!isActive}
+                $active={isActive}
+                as="h2"
+              >
+                {item.title}
+              </TitleText>
+            </TitleButton>
+          );
+        })}
+      </TitleList>
+      <Content
+        role="tabpanel"
+        id={`tabpanel-${tabs[activeTab]?.title}`}
+        aria-labelledby={`tab-${tabs[activeTab]?.title}`}
+      >
+        {tabs[activeTab]?.content}
+      </Content>
+    </TabsContainer>
+  );
+};
 
-export const TitleButton = styled(Button).withConfig({
-  shouldForwardProp: (prop) => prop !== '$active',
-})`
-  && {
-    background: none;
-    border: none;
-    border-radius: 0;
-    padding: 15px 30px;
-    font-size: 16px;
-    color: ${props => props.$active ? theme.primaryColor : theme.textColorMuted};
-    font-weight: ${props => props.$active ? '600' : '400'};
-    border-bottom: 2px solid ${props => props.$active ? theme.primaryColor : 'transparent'};
-    margin-bottom: -2px;
-    box-shadow: none;
-    
-    &:hover {
-      background: ${props => props.$active ? 'none' : theme.background};
-      color: ${props => props.$active ? theme.primaryColor : theme.textColor};
-      transform: none;
-    }
-  }
-`;
-
-export const TitleText = styled.span.withConfig({
-  shouldForwardProp: (prop) => !['$small', '$active'].includes(prop),
-})`
-  font-size: ${props => props.$small ? '14px' : '16px'};
-`;
-
-export const Content = styled.div`
-  padding: ${theme.indent} 0;
-`;
+export default Tabs;

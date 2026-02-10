@@ -15,6 +15,7 @@ const Description = ({ text }) => {
           bgColor="#2196f3"
           textColor="white"
           hoverColor="#1976d2"
+          onClick={() => console.log("скрытие/открытие всего текста")}
         >
           Подробнее
         </Button>
