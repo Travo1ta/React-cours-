@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
    TabsContainer,
    TitleList,
@@ -6,32 +7,32 @@ import {
    Content
 } from './styled';
 
-const Tabs = ({ tabs, activeTab = 0, onTabClick }) => {
+const Tabs = ({ tabs }) => { // Убираем activeTab и onTabClick из пропсов
+   const [activeTab, setActiveTab] = useState(0); // Добавляем внутреннее состояние
+
    if (!tabs?.length) return null;
 
    return (
       <TabsContainer>
-         <TitleList role="tablist"> {/* Добавляем роль для доступности */}
-            {tabs.map((item) => {
-               const isActive = item.title === tabs[activeTab]?.title;
+         <TitleList role="tablist">
+            {tabs.map((tab, index) => {
+               const isActive = index === activeTab; // Сравниваем ИНДЕКСЫ!
+               
                return (
                   <TitleButton
-                     key={item.title}
+                     key={tab.title}
                      $active={isActive}
-                     onClick={() => {
-                        const index = tabs.findIndex(tab => tab.title === item.title);
-                        onTabClick?.(index);
-                     }}
-                     role="tab" // Роль для доступности
-                     aria-selected={isActive} // Состояние для скринридеров
-                     aria-controls={`tabpanel-${item.title}`} // Связь с контентом
+                     onClick={() => setActiveTab(index)} // Используем setActiveTab
+                     role="tab"
+                     aria-selected={isActive}
+                     aria-controls={`tabpanel-${tab.title}`}
                   >
                      <TitleText
                         $small={!isActive}
                         $active={isActive}
-                        as="h2" // Меняем тег на h2 для заголовков табов
+                        as="h2"
                      >
-                        {item.title}
+                        {tab.title}
                      </TitleText>
                   </TitleButton>
                );
