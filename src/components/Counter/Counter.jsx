@@ -1,28 +1,38 @@
-import { useState } from 'react';
+import React from 'react';
 import { 
   CounterContainer, 
   CountDisplay, 
   CounterButton 
 } from './styled';
 
-const Counter = () => {
-  const [count, setCount] = useState(1);
+const Counter = ({ className, value = 1, onChange }) => {
+  const handleDecrement = () => {
+    if (onChange) {
+      onChange(value > 1 ? value - 1 : 1);
+    }
+  };
+
+  const handleIncrement = () => {
+    if (onChange) {
+      onChange(value + 1);
+    }
+  };
 
   return (
-    <CounterContainer>
+    <CounterContainer className={className}>
       <CounterButton 
         type="button" 
         size="small"
-        onClick={() => setCount(count > 1 ? count - 1 : 1)}
+        onClick={handleDecrement}
         aria-label="Уменьшить количество"
       >
         -
       </CounterButton>
-      <CountDisplay>{count}</CountDisplay>
+      <CountDisplay>{value}</CountDisplay>
       <CounterButton 
         type="button" 
         size="small"
-        onClick={() => setCount(count + 1)}
+        onClick={handleIncrement}
         aria-label="Увеличить количество"
       >
         +
