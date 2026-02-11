@@ -27,13 +27,25 @@ export const CounterButton = styled(Button)`
     align-items: center;
     justify-content: center;
     
-    &:hover {
+    &:hover:not(:disabled) {
       background: #f5f5f5;
       border-color: #999;
     }
     
-    &:active {
+    &:active:not(:disabled) {
       transform: scale(0.95);
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: #f5f5f5;
+      border-color: #eee;
+      
+      &:hover {
+        background: #f5f5f5;
+        border-color: #eee;
+      }
     }
   }
 `;

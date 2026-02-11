@@ -63,7 +63,12 @@ const ProductPage = ({ product }) => {
                   <PageFullPrice oldPrice={oldPrice} price={price} />
                </ProductInfoLine>
                <ProductInfoLine>
-                  Количество: <PageCounter value={quantity} onChange={setQuantity} />
+                  Количество:
+                  <PageCounter
+                     value={quantity}
+                     onChange={setQuantity}
+                     minValue={1} // Передаем minValue
+                  />
                </ProductInfoLine>
                <ProductInfoLine>
                   <span>Доставка:</span>{" "}
