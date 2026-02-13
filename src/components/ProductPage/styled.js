@@ -20,7 +20,7 @@ export const StyledProductPage = styled.article`
   color: ${theme.textColor};
   background: ${theme.cardBackground};
   border-radius: 12px;
-  box-sizing: border-box; /* Добавлено */
+  box-sizing: border-box;
 `;
 
 export const Header = styled.header`
@@ -43,7 +43,7 @@ export const ProductInfo = styled.div`
   border-left: 1px solid ${theme.borderColor};
   box-sizing: border-box;
   padding-left: ${theme.indentLarge};
-  min-width: 0; /* Добавлено: предотвращает переполнение */
+  min-width: 0;
   
   @media (max-width: 768px) {
     border-left: none;
@@ -59,27 +59,27 @@ export const ProductInfoLine = styled.div`
   margin-bottom: ${theme.indent};
   display: flex;
   align-items: center;
-  flex-wrap: wrap; /* ИСПРАВЛЕНО: добавлен wrap */
-  gap: 8px; /* Добавлено: отступ при переносе */
+  flex-wrap: wrap;
+  gap: 8px; 
 `;
 
 export const PageCounter = styled(Counter)`
   ${valueStyle}
-  flex: 0 1 auto; /* Добавлено: не растягивается, может сжиматься */
-  min-width: 140px; /* Добавлено: минимальная ширина для счетчика */
-  max-width: 100%; /* Добавлено: не выходит за пределы */
+  flex: 0 1 auto;
+  min-width: 140px;
+  max-width: 100%;
 `;
 
 export const PageFullPrice = styled(FullPrice)`
   ${valueStyle}
-  flex-wrap: wrap; /* Добавлено */
-  gap: 8px; /* Добавлено */
+  flex-wrap: wrap;
+  gap: 8px; 
 `;
 
 export const DeliveryValue = styled.span`
   ${valueStyle}
   color: ${theme.success};
-  flex: 0 1 auto; /* Добавлено */
+  flex: 0 1 auto;
 `;
 
 export const BuyButton = styled(Button)`

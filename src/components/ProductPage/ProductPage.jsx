@@ -5,90 +5,132 @@ import { ImageWrapper, GalleryImage } from '../Gallery/styled';
 import Description from '../Description/Description';
 import Comments from '../Comments/Comments';
 import Tabs from '../Tabs/Tabs';
+import PopUp from '../PopUp/PopUp';
+import Order from '../Order/Order'; // НОВЫЙ ИМПОРТ
 import {
-  StyledProductPage,
-  Header,
-  ProductWrapper,
-  ProductInfo,
-  ProductInfoLine,
-  PageCounter,
-  BuyButton,
-  PageFullPrice,
-  DeliveryValue
+   StyledProductPage,
+   Header,
+   ProductWrapper,
+   ProductInfo,
+   ProductInfoLine,
+   PageCounter,
+   BuyButton,
+   PageFullPrice,
+   DeliveryValue
 } from './styled';
 
 const ProductPage = ({ product }) => {
-  const [quantity, setQuantity] = useState(1);
-  
-  const {
-    title,
-    article,
-    oldPrice: baseOldPrice,
-    price: basePrice,
-    imageUrl,
-    comments = [],
-    description,
-    delivery
-  } = product;
+   const [quantity, setQuantity] = useState(1);
+   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+   const [formData, setFormData] = useState({
+      name: '',
+      phone: '',
+      address: ''
+   });
 
-  // ПЕРЕСЧЁТ ЦЕН с учётом количества
-  const totalPrice = basePrice * quantity;
-  const totalOldPrice = baseOldPrice ? baseOldPrice * quantity : null;
+   const {
+      title,
+      article,
+      oldPrice: baseOldPrice,
+      price: basePrice,
+      imageUrl,
+      comments = [],
+      description,
+      delivery
+   } = product;
 
-  const handleBuyClick = () => {
-    console.log('открытие окна оформления заказа с количеством:', quantity);
-    console.log('сумма заказа:', totalPrice);
-  };
+   const totalPrice = basePrice * quantity;
+   const totalOldPrice = baseOldPrice ? baseOldPrice * quantity : null;
 
-  const tabs = [
-    {
-      title: "Описание",
-      content: <Description text={description} />
-    },
-    {
-      title: "Комментарии",
-      content: <Comments comments={comments} />
-    }
-  ];
+   const handleBuyClick = () => {
+      setIsPopUpOpen(true);
+      console.log('открытие окна оформления заказа с количеством:', quantity);
+      console.log('сумма заказа:', totalPrice);
+   };
 
-  return (
-    <StyledProductPage>
-      <Header>
-        <Title as="h1">{title}</Title>
-        <Code>{article}</Code>
-      </Header>
+   const handleClosePopUp = () => {
+      setIsPopUpOpen(false);
+   };
 
-      <ProductWrapper>
-        <ImageWrapper>
-          <GalleryImage src={imageUrl} alt="3D принтер" />
-        </ImageWrapper>
-        <ProductInfo>
-          <ProductInfoLine>
-            Цена:{" "}
-            <PageFullPrice 
-              oldPrice={totalOldPrice} 
-              price={totalPrice} 
+   const handleInputChange = (newFormData) => {
+      setFormData(newFormData);
+   };
+
+   const handleSubmitOrder = (e) => {
+      e.preventDefault();
+      console.log('Оформление заказа:', {
+         ...formData,
+         product: title,
+         quantity,
+         totalPrice
+      });
+      alert('Заказ оформлен! Проверьте консоль для деталей.');
+      setIsPopUpOpen(false);
+   };
+
+   const tabs = [
+      {
+         title: "Описание",
+         content: <Description text={description} />
+      },
+      {
+         title: "Комментарии",
+         content: <Comments comments={comments} />
+      }
+   ];
+
+   return (
+      <StyledProductPage>
+         <Header>
+            <Title as="h1">{title}</Title>
+            <Code>{article}</Code>
+         </Header>
+
+         <ProductWrapper>
+            <ImageWrapper>
+               <GalleryImage src={imageUrl} alt="3D принтер" />
+            </ImageWrapper>
+            <ProductInfo>
+               <ProductInfoLine>
+                  Цена:{" "}
+                  <PageFullPrice
+                     oldPrice={totalOldPrice}
+                     price={totalPrice}
+                  />
+               </ProductInfoLine>
+               <ProductInfoLine>
+                  Количество:
+                  <PageCounter
+                     value={quantity}
+                     onChange={setQuantity}
+                     minValue={1}
+                  />
+               </ProductInfoLine>
+               <ProductInfoLine>
+                  <span>Доставка:</span>{" "}
+                  <DeliveryValue>{delivery}</DeliveryValue>
+               </ProductInfoLine>
+               <BuyButton size="large" onClick={handleBuyClick}>
+                  Купить
+               </BuyButton>
+            </ProductInfo>
+         </ProductWrapper>
+
+         <Tabs tabs={tabs} />
+
+         <PopUp
+            isOpen={isPopUpOpen}
+            onClose={handleClosePopUp}
+            title="Оформление заказа"
+         >
+            <Order
+               formData={formData}
+               onChange={handleInputChange}
+               onSubmit={handleSubmitOrder}
             />
-          </ProductInfoLine>
-          <ProductInfoLine>
-            Количество: 
-            <PageCounter 
-              value={quantity} 
-              onChange={setQuantity}
-              minValue={1}
-            />
-          </ProductInfoLine>
-          <ProductInfoLine>
-            <span>Доставка:</span>{" "}
-            <DeliveryValue>{delivery}</DeliveryValue>
-          </ProductInfoLine>
-          <BuyButton size="large" onClick={handleBuyClick}>Купить</BuyButton>
-        </ProductInfo>
-      </ProductWrapper>
-
-      <Tabs tabs={tabs} />
-    </StyledProductPage>
-  );
+         </PopUp>
+      </StyledProductPage>
+   );
 };
 
 export default ProductPage;
