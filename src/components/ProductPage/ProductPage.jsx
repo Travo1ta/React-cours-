@@ -5,7 +5,7 @@ import { ImageWrapper, GalleryImage } from '../Gallery/styled';
 import Description from '../Description/Description';
 import Comments from '../Comments/Comments';
 import Tabs from '../Tabs/Tabs';
-import Accordion from '../Accordion/Accordion'; // Импортируем аккордеон
+import Accordion from '../Accordion/Accordion';
 import PopUp from '../PopUp/PopUp';
 import Order from '../Order/Order';
 import {
@@ -20,7 +20,9 @@ import {
    DeliveryValue
 } from './styled';
 
-// Добавляем пропс showInfoInAccordion
+const MAX_TEXT_SIZE = 200; // Константа для обрезания текста
+const COMMENTS_PER_PAGE = 3; // Константа для количества комментариев
+
 const ProductPage = ({ product, showInfoInAccordion = false }) => {
    const [quantity, setQuantity] = useState(1);
    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
@@ -29,6 +31,11 @@ const ProductPage = ({ product, showInfoInAccordion = false }) => {
       phone: '',
       address: ''
    });
+
+   // НОВОЕ: состояние для показа полного описания
+   const [isShowAllDescription, setIsShowAllDescription] = useState(false);
+   // НОВОЕ: состояние для количества показываемых комментариев
+   const [visibleCommentsCount, setVisibleCommentsCount] = useState(COMMENTS_PER_PAGE);
 
    const {
       title,
@@ -70,15 +77,54 @@ const ProductPage = ({ product, showInfoInAccordion = false }) => {
       setIsPopUpOpen(false);
    };
 
-   // Контент для табов/аккордеона
+   // НОВОЕ: обработчик для кнопки "Подробнее"
+   const handleShowMoreDescription = () => {
+      setIsShowAllDescription(!isShowAllDescription);
+   };
+
+   // НОВОЕ: обработчик для кнопки "Показать ещё" комментарии
+   const handleShowMoreComments = () => {
+      setVisibleCommentsCount(prevCount =>
+         Math.min(prevCount + COMMENTS_PER_PAGE, comments.length)
+      );
+   };
+
+   // НОВОЕ: обрезаем текст если нужно
+   const getDisplayDescription = () => {
+      if (isShowAllDescription) {
+         return description;
+      }
+      return description.length > MAX_TEXT_SIZE
+         ? description.slice(0, MAX_TEXT_SIZE) + '...'
+         : description;
+   };
+
+   // НОВОЕ: показываем только видимые комментарии
+   const visibleComments = comments.slice(0, visibleCommentsCount);
+   const hasMoreComments = visibleCommentsCount < comments.length;
+
+   // НОВОЕ: контент для табов/аккордеона с логикой
    const contentItems = [
       {
          title: "Описание",
-         content: <Description text={description} />
+         content: (
+            <Description
+               text={getDisplayDescription()}
+               onShowMore={handleShowMoreDescription}
+               isShowAllDescription={isShowAllDescription}
+               hasMoreText={description.length > MAX_TEXT_SIZE}
+            />
+         )
       },
       {
          title: "Комментарии",
-         content: <Comments comments={comments} />
+         content: (
+            <Comments
+               comments={visibleComments}
+               onShowMore={handleShowMoreComments}
+               hasMoreComments={hasMoreComments}
+            />
+         )
       }
    ];
 
@@ -119,7 +165,6 @@ const ProductPage = ({ product, showInfoInAccordion = false }) => {
             </ProductInfo>
          </ProductWrapper>
 
-         {/* УСЛОВНЫЙ РЕНДЕРИНГ: ТАБЫ ИЛИ АККОРДЕОН */}
          {showInfoInAccordion ? (
             <Accordion items={contentItems} />
          ) : (
