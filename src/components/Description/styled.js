@@ -11,7 +11,7 @@ export const DescriptionText = styled.p`
   color: ${theme.textColor};
 `;
 
-export const ReadMoreButton = styled.button`
+export const DescriptionButton = styled.button`
   background: none;
   border: none;
   color: ${theme.primary};

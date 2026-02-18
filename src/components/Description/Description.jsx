@@ -1,17 +1,17 @@
-import React from 'react';
-import { DescriptionContainer, DescriptionText, ReadMoreButton } from './styled';
+import React from "react";
+import { DescriptionContainer, DescriptionText, DescriptionButton } from "./styled";
 
-const Description = ({ text, onShowMore, isShowAllDescription, hasMoreText }) => {
+function Description({ text, onShowMore, isShowAllDescription, hasMoreText }) {
    return (
       <DescriptionContainer>
          <DescriptionText>{text}</DescriptionText>
          {hasMoreText && (
-            <ReadMoreButton onClick={onShowMore}>
-               {isShowAllDescription ? 'Скрыть' : 'Подробнее'}
-            </ReadMoreButton>
+            <DescriptionButton onClick={onShowMore}>
+               {isShowAllDescription ? "Скрыть" : "Подробнее"}
+            </DescriptionButton>
          )}
       </DescriptionContainer>
    );
-};
+}
 
 export default Description;

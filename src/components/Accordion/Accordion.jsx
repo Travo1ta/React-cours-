@@ -17,7 +17,7 @@ const Accordion = ({ items }) => {
       if (openContentRef.current) {
          setHeight(openContentRef.current.offsetHeight);
       }
-   }, [activeIndex]); // Зависимость только от activeIndex
+   }, [activeIndex, items]); // Добавили items в зависимости
 
    if (!items?.length) return null;
 
@@ -27,12 +27,8 @@ const Accordion = ({ items }) => {
             const isOpen = index === activeIndex;
 
             return isOpen ? (
-               // ОТКРЫТЫЙ ЭЛЕМЕНТ
                <AccordionItem key={item.title}>
-                  <AccordionHeader
-                     as="span" // Меняем на span, так как это не кнопка
-                     $isActive={true}
-                  >
+                  <AccordionHeader as="span" $isActive={true}>
                      <AccordionTitle>{item.title}</AccordionTitle>
                   </AccordionHeader>
                   <AccordionContentWrapper style={{ height: `${height}px` }}>
@@ -42,7 +38,6 @@ const Accordion = ({ items }) => {
                   </AccordionContentWrapper>
                </AccordionItem>
             ) : (
-               // ЗАКРЫТЫЙ ЭЛЕМЕНТ
                <AccordionItem key={item.title}>
                   <AccordionHeader
                      onClick={() => setActiveIndex(index)}
