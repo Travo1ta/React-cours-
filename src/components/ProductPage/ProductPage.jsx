@@ -5,8 +5,9 @@ import { ImageWrapper, GalleryImage } from '../Gallery/styled';
 import Description from '../Description/Description';
 import Comments from '../Comments/Comments';
 import Tabs from '../Tabs/Tabs';
+import Accordion from '../Accordion/Accordion'; // Импортируем аккордеон
 import PopUp from '../PopUp/PopUp';
-import Order from '../Order/Order'; // НОВЫЙ ИМПОРТ
+import Order from '../Order/Order';
 import {
    StyledProductPage,
    Header,
@@ -19,7 +20,8 @@ import {
    DeliveryValue
 } from './styled';
 
-const ProductPage = ({ product }) => {
+// Добавляем пропс showInfoInAccordion
+const ProductPage = ({ product, showInfoInAccordion = false }) => {
    const [quantity, setQuantity] = useState(1);
    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
    const [formData, setFormData] = useState({
@@ -68,7 +70,8 @@ const ProductPage = ({ product }) => {
       setIsPopUpOpen(false);
    };
 
-   const tabs = [
+   // Контент для табов/аккордеона
+   const contentItems = [
       {
          title: "Описание",
          content: <Description text={description} />
@@ -116,7 +119,12 @@ const ProductPage = ({ product }) => {
             </ProductInfo>
          </ProductWrapper>
 
-         <Tabs tabs={tabs} />
+         {/* УСЛОВНЫЙ РЕНДЕРИНГ: ТАБЫ ИЛИ АККОРДЕОН */}
+         {showInfoInAccordion ? (
+            <Accordion items={contentItems} />
+         ) : (
+            <Tabs tabs={contentItems} />
+         )}
 
          <PopUp
             isOpen={isPopUpOpen}
