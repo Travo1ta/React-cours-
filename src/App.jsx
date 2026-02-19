@@ -1,27 +1,40 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import ProductPage from './components/ProductPage/ProductPage';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './theme';
+import GlobalStyles from './GlobalStyles';
 
-function App() {
-   const product = {
-      title: "3D принтер",
-      article: "2840367",
-      oldPrice: 55555,
-      price: 33333,
-      imageUrl: "https://i.ibb.co/gPCq1G4/image.png",
-      comments: [
-         { id: 1, author: "Кирилл", text: "Отличный принтер!" },
-         { id: 2, author: "Мария", text: "Работает без нареканий" },
-         { id: 3, author: "Алексей", text: "Доставка быстрая" },
-         { id: 4, author: "Ольга", text: "Качество печати хорошее" },
-         { id: 5, author: "Дмитрий", text: "Рекомендую" },
-         { id: 6, author: "Анна", text: "Лучшая покупка" },
-         { id: 7, author: "Илья", text: "Цену бы пониже" },
-         { id: 8, author: "Дима", text: "А где покупать расходники?" }
-      ],
-      description: "это 'текст-рыба', часто исполняется в связи с заявлением о выборке, а также о приобретении данных. В этом случае это является стандартной 'рыбой' для того, чтобы не получить время нанесения данных. Если вы имеете право на перейти к данным, то если вы имеете право на перейти к данным, то нужно ли узнать, что произошло.",
-      delivery: "1 апреля"
-   };
-   // если надо реализовать функцию показа через аккордион то вставляем showInfoInAccordion={true} иначе будет показан Таб
-   return <ProductPage product={product} showInfoInAccordion={true} />;
-}
+// ИЗМЕНЕНО: теперь images - массив с несколькими изображениями
+const product = {
+  title: "3D принтер",
+  article: "2840367",
+  price: 33333,
+  oldPrice: 55555,
+  images: [
+    "https://i.ibb.co/gPCq1G4/image.png",
+    "https://i.ibb.co/yFhYrms/hb2NiWc.jpg",
+    "https://i.ibb.co/r6QCT38/NcXNhJb.jpg"
+  ],
+  description: "Это 'текст-рыба', часто используется в макетах для демонстрации того, как будет выглядеть текст. Здесь должно быть подробное описание 3D принтера, его характеристик, особенностей и преимуществ. " + 
+    "Текст может быть очень длинным, чтобы проверить работу кнопки 'Подробнее' и аккордеона. " +
+    "Добавим ещё несколько предложений, чтобы точно превысить лимит в 200 символов и убедиться, что кнопка появляется.",
+  comments: [
+    { id: 1, author: "Иван", text: "Отличный принтер, печатает быстро и качественно!" },
+    { id: 2, author: "Мария", text: "Доставка быстрая, упаковка отличная" },
+    { id: 3, author: "Алексей", text: "Пользуюсь месяц, проблем нет" },
+    { id: 4, author: "Елена", text: "Хорошее соотношение цены и качества" },
+    { id: 5, author: "Дмитрий", text: "Ребята, всем советую!" }
+  ],
+  delivery: "1 апреля"
+};
 
-export default App;
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <ProductPage product={product} showInfoInAccordion={false} />
+    </ThemeProvider>
+  </React.StrictMode>
+);
