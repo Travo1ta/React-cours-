@@ -1,26 +1,62 @@
 import styled from 'styled-components';
-import { Image } from '../../elements';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { theme } from '../../theme';
 
-export const ImageWrapper = styled.div`
-  width: 300px;
-  height: 385px;
-  flex-shrink: 0;
+export const GalleryContainer = styled.div`
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 `;
 
-export const GalleryImage = styled(Image).attrs((props) => ({
-  src: props.src,
-  alt: props.alt || "Изображение товара",
-  width: "300",
-  height: "385"
-}))`
+export const MainSwiper = styled(Swiper)`
+  width: 100%;
+  height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 15px;
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: ${theme.primary};
+    background: rgba(255, 255, 255, 0.8);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    
+    &:after {
+      font-size: 18px;
+    }
+  }
+
+  .swiper-pagination-bullet-active {
+    background: ${theme.primary};
+  }
+`;
+
+export const ThumbsSwiper = styled(Swiper)`
+  width: 100%;
+  height: 80px;
+
+  .swiper-slide {
+    opacity: 0.6;
+    transition: opacity 0.3s;
+    cursor: pointer;
+
+    &-thumb-active {
+      opacity: 1;
+    }
+  }
+`;
+
+export const SlideImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  
-  &:hover {
-    transform: scale(1.02);
-  }
+`;
+
+export const ThumbImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
 `;
