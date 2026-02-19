@@ -1,11 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import ProductPage from './components/ProductPage/ProductPage';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './theme';
 import GlobalStyles from './GlobalStyles';
 
-// ИЗМЕНЕНО: теперь images - массив с несколькими изображениями
+// Пример данных товара
 const product = {
   title: "3D принтер",
   article: "2840367",
@@ -20,8 +19,8 @@ const product = {
     "Текст может быть очень длинным, чтобы проверить работу кнопки 'Подробнее' и аккордеона. " +
     "Добавим ещё несколько предложений, чтобы точно превысить лимит в 200 символов и убедиться, что кнопка появляется.",
   comments: [
-    { id: 1, author: "Иван", text: "Отличный принтер, печатает быстро и качественно!" },
-    { id: 2, author: "Мария", text: "Доставка быстрая, упаковка отличная" },
+    { id: 1, author: "Иван", text: "Отличный принтер!" },
+    { id: 2, author: "Мария", text: "Доставка быстрая" },
     { id: 3, author: "Алексей", text: "Пользуюсь месяц, проблем нет" },
     { id: 4, author: "Елена", text: "Хорошее соотношение цены и качества" },
     { id: 5, author: "Дмитрий", text: "Ребята, всем советую!" }
@@ -29,12 +28,14 @@ const product = {
   delivery: "1 апреля"
 };
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
+function App() {
+  return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <ProductPage product={product} showInfoInAccordion={false} />
     </ThemeProvider>
-  </React.StrictMode>
-);
+  );
+}
+
+// ✅ ДОБАВЛЯЕМ ЭКСПОРТ
+export default App;

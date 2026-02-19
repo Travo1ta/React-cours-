@@ -32,19 +32,5 @@ export const CommentText = styled.p`
   margin: 0;
 `;
 
-export const ShowMoreButton = styled.button`
-  background: none;
-  border: 1px solid ${theme.borderColor};
-  border-radius: 4px;
-  padding: 8px 16px;
-  color: ${theme.primary};
-  cursor: pointer;
-  font-size: 14px;
-  margin-top: 15px;
-  width: 100%;
-  
-  &:hover {
-    background: ${theme.background};
-    border-color: ${theme.primary};
-  }
-`;
+// Удаляем ShowMoreButton, так как используем общий Button
+// export const ShowMoreButton = styled.button...

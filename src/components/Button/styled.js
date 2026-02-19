@@ -1,43 +1,53 @@
 import styled, { css } from 'styled-components';
 import { theme } from '../../theme';
 
-// Используем css функцию для buttonOptions
-const buttonOptions = theme.button;
-
-const buttonSizeStyle = css`
-  ${(props) => {
-    const buttonTheme = buttonOptions[props.$size || "medium"];
-
-    return css`
-      height: ${buttonTheme.height};
-      padding-left: ${buttonTheme.padding};
-      padding-right: ${buttonTheme.padding};
-      font-size: ${buttonTheme.fontSize};
-      border-radius: ${buttonTheme.radius};
-    `;
-  }}
-`;
+const sizeStyles = {
+  small: css`
+    padding: 6px 12px;
+    font-size: 12px;
+  `,
+  medium: css`
+    padding: 10px 20px;
+    font-size: 14px;
+  `,
+  large: css`
+    padding: 14px 28px;
+    font-size: 18px;
+  `
+};
 
 export const StyledButton = styled.button`
-  padding: 0;
+  background: ${theme.gradients.primary};
+  color: white;
   border: none;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: none;
-  display: block;
-  background-color: ${props => props.$bgColor || theme.background};
-  color: ${props => props.$textColor || theme.textColor};
-  box-shadow: ${theme.shadowLight};
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  display: inline-block;
+  text-align: center;
   
-  ${buttonSizeStyle}
+  ${props => sizeStyles[props.$size] || sizeStyles.medium}
   
   &:hover {
-    background-color: ${props => props.$hoverColor || props.$bgColor || '#e0e0e0'};
-    box-shadow: ${theme.shadowHover};
+    background: ${theme.gradients.primaryHover};
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
   }
   
   &:active {
-    transform: scale(0.98);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
   }
 `;
