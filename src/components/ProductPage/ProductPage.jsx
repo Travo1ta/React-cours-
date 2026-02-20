@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Title } from '../Title/styled';
 import { Code } from '../Code/styled';
-// Убираем старый импорт GalleryImage
-import Gallery from '../Gallery/Gallery'; // Импортируем новый компонент
+import Gallery from '../Gallery/Gallery';
 import Description from '../Description/Description';
 import Comments from '../Comments/Comments';
 import Tabs from '../Tabs/Tabs';
@@ -27,11 +26,6 @@ const COMMENTS_PER_PAGE = 3;
 const ProductPage = ({ product, showInfoInAccordion = false }) => {
    const [quantity, setQuantity] = useState(1);
    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
-   const [formData, setFormData] = useState({
-      name: '',
-      phone: '',
-      address: ''
-   });
    const [isShowAllDescription, setIsShowAllDescription] = useState(false);
    const [visibleCommentsCount, setVisibleCommentsCount] = useState(COMMENTS_PER_PAGE);
 
@@ -40,7 +34,7 @@ const ProductPage = ({ product, showInfoInAccordion = false }) => {
       article,
       oldPrice: baseOldPrice,
       price: basePrice,
-      images = [], // ИЗМЕНЕНО: теперь массив изображений
+      images = [],
       comments = [],
       description,
       delivery
@@ -49,29 +43,16 @@ const ProductPage = ({ product, showInfoInAccordion = false }) => {
    const totalPrice = basePrice * quantity;
    const totalOldPrice = baseOldPrice ? baseOldPrice * quantity : null;
 
+   // Обработчики
    const handleBuyClick = () => {
       setIsPopUpOpen(true);
-      console.log('открытие окна оформления заказа с количеством:', quantity);
-      console.log('сумма заказа:', totalPrice);
+      console.log('Открытие окна оформления заказа');
+      console.log('Товар:', title);
+      console.log('Количество:', quantity);
+      console.log('Сумма заказа:', totalPrice);
    };
 
    const handleClosePopUp = () => {
-      setIsPopUpOpen(false);
-   };
-
-   const handleInputChange = (newFormData) => {
-      setFormData(newFormData);
-   };
-
-   const handleSubmitOrder = (e) => {
-      e.preventDefault();
-      console.log('Оформление заказа:', {
-         ...formData,
-         product: title,
-         quantity,
-         totalPrice
-      });
-      alert('Заказ оформлен! Проверьте консоль для деталей.');
       setIsPopUpOpen(false);
    };
 
@@ -85,6 +66,25 @@ const ProductPage = ({ product, showInfoInAccordion = false }) => {
       );
    };
 
+   const handleOrderSubmit = (orderData) => {
+      console.log('=================================');
+      console.log('ЗАКАЗ ОФОРМЛЕН:');
+      console.log('=================================');
+      console.log('Покупатель:', orderData.name);
+      console.log('Телефон:', orderData.phone);
+      console.log('Адрес доставки:', orderData.address);
+      console.log('---------------------------------');
+      console.log('Товар:', title);
+      console.log('Количество:', quantity);
+      console.log('Цена за единицу:', basePrice);
+      console.log('Общая сумма:', totalPrice);
+      console.log('=================================');
+
+      alert(`Спасибо за заказ, ${orderData.name}! Мы доставим его по адресу: ${orderData.address}`);
+      setIsPopUpOpen(false);
+   };
+
+   // Логика для описания
    const getDisplayDescription = () => {
       if (isShowAllDescription) {
          return description;
@@ -94,9 +94,11 @@ const ProductPage = ({ product, showInfoInAccordion = false }) => {
          : description;
    };
 
+   // Логика для комментариев
    const visibleComments = comments.slice(0, visibleCommentsCount);
    const hasMoreComments = visibleCommentsCount < comments.length;
 
+   // Контент для табов/аккордеона
    const contentItems = [
       {
          title: "Описание",
@@ -129,7 +131,6 @@ const ProductPage = ({ product, showInfoInAccordion = false }) => {
          </Header>
 
          <ProductWrapper>
-            {/* ИЗМЕНЕНО: используем Gallery вместо ImageWrapper */}
             <Gallery images={images} />
 
             <ProductInfo>
@@ -140,6 +141,7 @@ const ProductPage = ({ product, showInfoInAccordion = false }) => {
                      price={totalPrice}
                   />
                </ProductInfoLine>
+
                <ProductInfoLine>
                   Количество:
                   <PageCounter
@@ -148,10 +150,12 @@ const ProductPage = ({ product, showInfoInAccordion = false }) => {
                      minValue={1}
                   />
                </ProductInfoLine>
+
                <ProductInfoLine>
                   <span>Доставка:</span>{" "}
                   <DeliveryValue>{delivery}</DeliveryValue>
                </ProductInfoLine>
+
                <BuyButton size="large" onClick={handleBuyClick}>
                   Купить
                </BuyButton>
@@ -164,16 +168,13 @@ const ProductPage = ({ product, showInfoInAccordion = false }) => {
             <Tabs tabs={contentItems} />
          )}
 
+         {/* PopUp с формой заказа */}
          <PopUp
             isOpen={isPopUpOpen}
             onClose={handleClosePopUp}
             title="Оформление заказа"
          >
-            <Order
-               formData={formData}
-               onChange={handleInputChange}
-               onSubmit={handleSubmitOrder}
-            />
+            <Order onSubmit={handleOrderSubmit} />
          </PopUp>
       </StyledProductPage>
    );

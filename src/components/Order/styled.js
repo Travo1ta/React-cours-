@@ -38,6 +38,11 @@ export const OrderInput = styled.input`
     color: ${theme.textColorMuted};
     opacity: 0.5;
   }
+
+  &:disabled {
+    background: ${theme.background};
+    cursor: not-allowed;
+  }
 `;
 
 export const OrderButton = styled(Button)`
@@ -49,14 +54,21 @@ export const OrderButton = styled(Button)`
     font-size: 18px;
     padding: 14px;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background: ${theme.gradients.primaryHover};
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
     }
 
-    &:active {
+    &:active:not(:disabled) {
       transform: translateY(0);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
     }
   }
 `;
