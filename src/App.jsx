@@ -1,41 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ProductPage from './components/ProductPage/ProductPage';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './theme';
 import GlobalStyles from './GlobalStyles';
-
-// Пример данных товара
-const product = {
-   title: "3D принтер",
-   article: "2840367",
-   price: 33333,
-   oldPrice: 55555,
-   images: [
-      "https://i.ibb.co/gPCq1G4/image.png",
-      "https://i.ibb.co/yFhYrms/hb2NiWc.jpg",
-      "https://i.ibb.co/r6QCT38/NcXNhJb.jpg"
-   ],
-   description: "Это 'текст-рыба', часто используется в макетах для демонстрации того, как будет выглядеть текст. Здесь должно быть подробное описание 3D принтера, его характеристик, особенностей и преимуществ. " +
-      "Текст может быть очень длинным, чтобы проверить работу кнопки 'Подробнее' и аккордеона. " +
-      "Добавим ещё несколько предложений, чтобы точно превысить лимит в 200 символов и убедиться, что кнопка появляется.",
-   comments: [
-      { id: 1, author: "Иван", text: "Отличный принтер!" },
-      { id: 2, author: "Мария", text: "Доставка быстрая" },
-      { id: 3, author: "Алексей", text: "Пользуюсь месяц, проблем нет" },
-      { id: 4, author: "Елена", text: "Хорошее соотношение цены и качества" },
-      { id: 5, author: "Дмитрий", text: "Ребята, всем советую!" }
-   ],
-   delivery: "1 апреля"
-};
+import { products } from './mocks/products'; // Импортируем массив продуктов
 
 function App() {
+   // Состояние для выбранного продукта (по умолчанию первый)
+   const [selectedProductId, setSelectedProductId] = useState(1);
+
+   // Находим выбранный продукт по id
+   const selectedProduct = products.find(p => p.id === selectedProductId) || products[0];
+
    return (
       <ThemeProvider theme={theme}>
          <GlobalStyles />
-         <ProductPage product={product} showInfoInAccordion={false} />
+
+         {/* Простая навигация для переключения между продуктами */}
+         <div style={{ padding: '20px', textAlign: 'center' }}>
+            {products.map(product => (
+               <button
+                  key={product.id}
+                  onClick={() => setSelectedProductId(product.id)}
+                  style={{
+                     margin: '0 10px',
+                     padding: '10px 20px',
+                     background: selectedProductId === product.id ? theme.primary : '#eee',
+                     color: selectedProductId === product.id ? 'white' : '#333',
+                     border: 'none',
+                     borderRadius: '4px',
+                     cursor: 'pointer'
+                  }}
+               >
+                  {product.title}
+               </button>
+            ))}
+         </div>
+
+         {/* Передаём выбранный продукт в ProductPage */}
+         <ProductPage
+            product={selectedProduct}
+            showInfoInAccordion={false}
+         />
       </ThemeProvider>
    );
 }
 
-// ✅ ДОБАВЛЯЕМ ЭКСПОРТ
 export default App;
