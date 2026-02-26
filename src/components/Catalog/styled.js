@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { theme } from '../../theme';
 import { Title } from '../Title/styled';
 
@@ -27,12 +28,20 @@ export const ProductCard = styled.article`
   overflow: hidden;
   box-shadow: ${theme.shadow};
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
 
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
+`;
+
+// ✅ Стилизованный Link - убираем стандартное оформление ссылки
+export const ProductLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+  height: 100%;
 `;
 
 export const ProductImage = styled.img`
