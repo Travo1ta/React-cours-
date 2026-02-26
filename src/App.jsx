@@ -2,29 +2,30 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { products } from './mocks/products';
 import Catalog from './components/Catalog/Catalog';
-import ProductPage from './components/ProductPage/ProductPage';
+import ProductOr404 from './components/ProductOr404/ProductOr404';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
    return (
       <BrowserRouter>
          <Routes>
-            {/* Главная страница - каталог товаров */}
-            <Route
-               path="/"
-               element={<Catalog products={products} />}
-            />
+            {/* Главная страница - каталог */}
+            <Route path="/">
+               {/* index = путь "/" */}
+               <Route index element={<Catalog products={products} />} />
 
-            {/* Страница конкретного товара */}
-            <Route
-               path="/product/:id"
-               element={<ProductPage product={products[0]} showInfoInAccordion={true} />}
-            />
+               {/* Вложенный маршрут для товаров */}
+               <Route path="product">
+                  {/* :code - динамический параметр (артикул) */}
+                  <Route
+                     path=":code"
+                     element={<ProductOr404 products={products} />}
+                  />
+               </Route>
 
-            {/* Страница 404 */}
-            <Route
-               path="*"
-               element={<div>Страница не найдена</div>}
-            />
+               {/* 404 для всех остальных путей */}
+               <Route path="*" element={<NotFound />} />
+            </Route>
          </Routes>
       </BrowserRouter>
    );
