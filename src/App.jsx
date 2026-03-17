@@ -1,25 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { products } from './mocks/products';
 import Layout from './components/Layout/Layout';
 import Catalog from './components/Catalog/Catalog';
-import ProductPage from './components/ProductPage/ProductPage';
 import NotFound from './components/NotFound/NotFound';
+import ProductOr404 from './components/ProductOr404/ProductOr404';
 
-// Компонент для поиска товара по артикулу
-const ProductOr404 = ({ products }) => {
-   const { code } = useParams();
-
-   const product = products.find(
-      (product) => product.article?.toString() === code
-   );
-
-   if (product) {
-      return <ProductPage product={product} showInfoInAccordion={true} />;
-   }
-
-   return <NotFound />;
-};
 
 function App() {
    return (
