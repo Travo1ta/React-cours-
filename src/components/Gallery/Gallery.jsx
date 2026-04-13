@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'; // УБРАЛИ useEffect
-import {SwiperSlide } from 'swiper/react';
+import React, { useRef, useState } from 'react';
+import { SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Thumbs } from 'swiper/modules';
 
 // Стили Swiper
@@ -17,7 +17,7 @@ import {
   ThumbImage
 } from './styled';
 
-const Gallery = ({ images }) => {
+const Gallery = ({ images, width = 400, height = 300 }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   
   const navigationPrevRef = useRef(null);
@@ -26,7 +26,7 @@ const Gallery = ({ images }) => {
   if (!images?.length) return null;
 
   return (
-    <GalleryWrapper>
+    <GalleryWrapper width={width}>
       <NavButton 
         $left 
         ref={navigationPrevRef} 
@@ -44,6 +44,8 @@ const Gallery = ({ images }) => {
       </NavButton>
 
       <StyledSwiper
+        width={width}
+        height={height}
         onBeforeInit={(swiper) => {
           if (navigationPrevRef.current && navigationNextRef.current) {
             swiper.params.navigation.prevEl = navigationPrevRef.current;
@@ -64,7 +66,8 @@ const Gallery = ({ images }) => {
           <SwiperSlide key={`slide-${image}-${index}`}>
             <SlideImage 
               src={image} 
-              alt={`Продукт ${index + 1}`} 
+              alt={`Продукт ${index + 1}`}
+              $height={height}
             />
           </SwiperSlide>
         ))}

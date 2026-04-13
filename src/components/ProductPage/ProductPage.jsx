@@ -131,7 +131,9 @@ const ProductPage = ({ product, showInfoInAccordion = false }) => {
          </Header>
 
          <ProductWrapper>
-            <Gallery images={images} />
+            <Gallery images={images}
+               width={350}
+               height={280} />
 
             <ProductInfo>
                <ProductInfoLine>
