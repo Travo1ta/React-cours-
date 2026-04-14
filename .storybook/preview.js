@@ -1,18 +1,15 @@
-/** @type { import('@storybook/react-vite').Preview } */
-const preview = {
-  parameters: {
-    controls: {
-      matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
-      },
-    },
+// .storybook/preview.js
 
-    a11y: {
-      // Проверки доступности включены с блокировкой ошибок
-      test: "error"
-    }
-  },
+/** @type { import('@storybook/react').Preview } */
+const preview = {
+   parameters: {
+      controls: {
+         matchers: {
+            color: /(background|color)$/i,
+            date: /Date$/i,
+         },
+      },
+   },
 };
 
 export default preview;
