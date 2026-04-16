@@ -2,7 +2,7 @@ export const products = [
    {
       id: 1,
       title: "3D принтер",
-      article: "2840367",   // В моках code, а у нас article
+      article: "2840367",
       price: 33333,
       oldPrice: 55555,
       delivery: "1 апреля",

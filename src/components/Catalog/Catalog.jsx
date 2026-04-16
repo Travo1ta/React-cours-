@@ -5,7 +5,7 @@ import {
    CatalogTitle,
    ProductsGrid,
    ProductCard,
-   ProductLink, // ✅ Стилизованный Link
+   ProductLink,
    ProductImage,
    ProductTitle,
    ProductPrice
@@ -22,9 +22,8 @@ const Catalog = ({ products }) => {
 
          <ProductsGrid>
             {products.map((product) => (
-               <ProductCard key={product.article || product.id}>
-                  {/* ✅ Оборачиваем всю карточку в Link */}
-                  <ProductLink to={`/product/${product.article}`}>
+               <ProductCard key={product.article}>
+                  <ProductLink to={`/catalog/product/${product.article}`}>
                      <ProductImage
                         src={product.images?.[0] || '/placeholder.jpg'}
                         alt={product.title}

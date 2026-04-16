@@ -11,6 +11,11 @@ export const theme = {
   secondaryColor: "#667eea",
   secondaryDark: "#5a6fd8",
   
+  // Жёлтый цвет
+  accent: "#FFD700",
+  accentLight: "#FFEB3B",
+  accentDark: "#F9A825",
+  
   // Цвета состояний
   success: "#2e7d32",
   successLight: "#e8f5e9",
@@ -36,6 +41,11 @@ export const theme = {
   shadow: "0 4px 20px rgba(0, 0, 0, 0.08)",
   shadowLight: "0 2px 8px rgba(0, 0, 0, 0.05)",
   shadowHover: "0 6px 20px rgba(0, 0, 0, 0.12)",
+  
+  // Цвета для кнопок
+  buttonTextColor: "#ffffff",
+  buttonPrimaryBg: "#667eea",
+  buttonPrimaryHoverBg: "#5a6fd8",
   
   // Кнопки
   button: {

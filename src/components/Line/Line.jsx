@@ -1,43 +1,32 @@
-// src/components/Line/Line.jsx
 import styled from "styled-components";
 import { theme } from "../../theme";
 
 const Line = styled.hr`
-  /* Базовые стили */
   border: none;
-  margin: 20px 0;
+  margin: 20px auto;
   
-  /* Цвет по умолчанию из темы */
-  background-color: ${props => props.color || theme.colors?.border || '#e0e0e0'};
-  
-  /* Толщина линии */
-  height: ${props => props.thickness || '1px'};
-  
-  /* Ширина (проценты или пиксели) */
-  width: ${props => props.width || '100%'};
-  
-  /* Скругление (для толстых линий) */
-  border-radius: ${props => props.rounded ? '4px' : '0'};
-  
-  /* Анимация при появлении */
+  /* Используем transient props с $ */
+  background-color: ${props => props.$color || theme.accent || '#FFD700'};
+  height: ${props => props.$thickness || '4px'};
+  width: ${props => props.$width || '100px'};
+  border-radius: ${props => props.$rounded ? '4px' : '0'};
   transition: all 0.3s ease;
+  display: block;
   
-  /* Варианты стилей */
-  ${props => props.dashed && `
+  ${props => props.$dashed && `
     background: none;
-    border-top: ${props.thickness || '1px'} dashed ${props.color || theme.colors?.border || '#e0e0e0'};
+    border-top: ${props.$thickness || '4px'} dashed ${props.$color || theme.accent || '#FFD700'};
     height: 0;
   `}
   
-  ${props => props.dotted && `
+  ${props => props.$dotted && `
     background: none;
-    border-top: ${props.thickness || '1px'} dotted ${props.color || theme.colors?.border || '#e0e0e0'};
+    border-top: ${props.$thickness || '4px'} dotted ${props.$color || theme.accent || '#FFD700'};
     height: 0;
   `}
   
-  /* Градиентная линия */
-  ${props => props.gradient && `
-    background: linear-gradient(90deg, transparent, ${props.color || theme.colors?.primary || '#667eea'}, transparent);
+  ${props => props.$gradient && `
+    background: linear-gradient(90deg, transparent, ${props.$color || theme.accent || '#FFD700'}, transparent);
   `}
 `;
 

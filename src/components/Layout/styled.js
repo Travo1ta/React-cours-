@@ -5,12 +5,13 @@ export const LayoutWrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: ${theme.background};
 `;
 
 export const Header = styled.header`
-  background: ${theme.primary};
+  background: ${theme.gradients.primary};
   padding: ${theme.indent} ${theme.indentLarge};
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: ${theme.shadow};
 `;
 
 export const Nav = styled.nav`
@@ -51,13 +52,13 @@ export const NavItem = styled.div`
 
 export const Main = styled.main`
   flex: 1;
-  background: ${theme.background};
 `;
 
 export const Footer = styled.footer`
-  background: ${theme.textColor};
-  color: white;
+  background: ${theme.cardBackground};
+  color: ${theme.textColorMuted};
   text-align: center;
   padding: ${theme.indent};
   margin-top: auto;
+  border-top: 1px solid ${theme.borderColor};
 `;
